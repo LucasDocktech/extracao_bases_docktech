@@ -168,7 +168,7 @@ def run_headcount_dashboard():
             arrow = "↓" if diff < 0 else "↑"
             
             # Badge padronizada e alinhada à esquerda (0px padding-left)
-            badge_html = f'<div style="margin-top: 15px; display: flex; justify-content: flex-start; padding-left: 0px;"><div style="border: 1.5px solid #4B44CA; border-radius: 20px; padding: 2px 12px; color: #4B44CA; font-weight: bold; font-size: 11px; background: rgba(75, 68, 202, 0.1);">{conteudos_badges[i]}</div></div>'
+            badge_html = f'<div style="margin-top: 15px; display: flex; justify-content: flex-start; padding-left: 0px;"><div style="border: 1.5px solid #00DDDD; border-radius: 20px; padding: 2px 12px; color: #00DDDD; font-weight: bold; font-size: 11px; background: rgba(75, 68, 202, 0.1);">{conteudos_badges[i]}</div></div>'
 
             html_card = f'<div class="custom-metric-card"><div class="metric-label">{labels[i]}</div><div class="metric-value">{display}</div><div class="metric-delta" style="color: {color};">{arrow} {d_str}</div><div class="metric-comparison">vs {", ".join(map(str, sorted(past_years)))}</div>{badge_html}</div>'
             
@@ -253,7 +253,7 @@ def run_headcount_dashboard():
                 st.info(f"Sem dados de desligamento para a origem '{sel_origem}' neste período.")
 
         # ITEM 9: DETALHAMENTO MINIMALISTA POR UNIDADE (Mantido)
-        st.write("### Detalhamento por Unidade Operacional")
+        st.write("### Detalhamento por Operação")
         anos_formatados_detalhe = ", ".join(map(str, sorted(selected_years)))
         st.markdown(f"<p style='color: #9CA3AF; margin-top: -15px;'>Análise baseada no período de: {anos_formatados_detalhe}</p>", unsafe_allow_html=True)
         
@@ -330,7 +330,7 @@ def run_headcount_dashboard():
                     </div>
                 """, unsafe_allow_html=True)
 
-            st.write("#### Variação por Motivo (MoM)")
+            st.write("#### Variação por Motivo")
             if not df_atual.empty:
                 motivos_atual = df_atual['DS_RAZAO_DESLIGAMENTO'].value_counts().reset_index()
                 motivos_ant = df_anterior['DS_RAZAO_DESLIGAMENTO'].value_counts().reset_index()
@@ -384,7 +384,7 @@ def run_headcount_dashboard():
         st.write("### Detalhamento por Operação")
         
         anos_formatados_op_det = ", ".join(map(str, sorted(selected_years)))
-        st.markdown(f"<p style='color: #9CA3AF; margin-top: -15px;'>Visão proporcional por Unidade Operacional: {anos_formatados_op_det}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: #9CA3AF; margin-top: -15px;'>Análise baseada no período de: {anos_formatados_op_det}</p>", unsafe_allow_html=True)
 
         df_op_item12 = df_raw[df_raw['DT_ADMISSAO_ANO'].isin(selected_years)].copy()
         op_summary = df_op_item12.groupby('DS_OPERACAO').agg(
@@ -414,7 +414,8 @@ def run_headcount_dashboard():
             
         # ITEM 13: PERFIL GERACIONAL
         st.markdown("---")
-        st.subheader("Perfil Geracional por Unidade")
+        st.subheader("Perfil Geracional por Operação")
+        st.markdown(f"<p style='color: #9CA3AF; margin-top: -15px;'>Análise baseada no período de: {anos_formatados_op_det}</p>", unsafe_allow_html=True)
         
         df_f_gen = df_raw[df_raw['DT_ADMISSAO_ANO'].isin(selected_years)].copy()
         op_counts = df_f_gen.groupby(['DS_OPERACAO', 'FAIXA_ETARIA']).size().unstack(fill_value=0)
@@ -525,7 +526,7 @@ def run_headcount_dashboard():
         st.markdown(f"<p style='color: #9CA3AF; margin-top: -15px;'>Análise baseada no período de: {anos_formatados_jor}</p>", unsafe_allow_html=True)
 
         # AJUSTE: Filtro de Status para Jornada
-        status_jor = st.radio("Status para Jornada:", ["Todos", "Ativos", "Desligados"], horizontal=True, key="filtro_status_jor")
+        status_jor = st.radio("Status:", ["Todos", "Ativos", "Desligados"], horizontal=True, key="filtro_status_jor")
 
         # Aplicação da filtragem de status baseada no df_vagas (que já possui o filtro de ano e operação)
         df_jor_filtrado = df_vagas.copy()
@@ -776,8 +777,7 @@ def run_headcount_dashboard():
                 """, unsafe_allow_html=True)
 
             # --- TABELA DETALHADA (COM LÓGICA DE FILTRO UNIVERSAL) ---
-            st.markdown("### Detalhamento Nominal por Supervisor")
-            
+            st.markdown("### Detalhamento Analitico")
             # Filtro da Tabela deve seguir a Operação selecionada para mostrar Ativos daquela Unidade
             df_tabela = df_sup_base.copy()
             if selected_op_sup != "Todas":
