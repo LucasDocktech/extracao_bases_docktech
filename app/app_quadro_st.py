@@ -78,7 +78,7 @@ def run_headcount_dashboard():
     
     # CAMINHO_BASE = r'\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\nivel_dois_bases_app\Arquivos_parquet_nv_2\quadro_geral.parquet'
 
-    @st.cache_data(ttl=3600)
+    @st.cache_data(ttl=1)
     def carregar_dados(caminho):
         if os.path.exists(caminho):
             df = pd.read_parquet(caminho)
