@@ -10,7 +10,7 @@ def obter_datas(automatico=0):
         inicio = str(inicio_obj)
         fim = str(fim_obj)
     else:
-        inicio = '2026-01-01'
+        inicio = '2025-01-01'
         fim = '2026-08-17'
 
     ano = inicio[0:4]
