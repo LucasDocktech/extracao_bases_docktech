@@ -166,7 +166,11 @@ def executar_e_salvar_dlocal():
             df_final = df_novo.sort_values(by=['linkedid', 'datahora'])
  
         # Exportação
-        df_final.to_parquet(caminho_parquet, index=False, compression='snappy')
+        # df_final.to_parquet(caminho_parquet, index=False, compression='snappy')
+        
+        # Exportação Excel
+        caminho_excel = os.path.join(PASTA_DESTINO, "import_chamadas_dlocal.xlsx")
+        df_final.to_excel(caminho_excel, index=False)
        
         print(f"Processo finalizado. Total de dados armazenados: {len(df_final)}")
  
