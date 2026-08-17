@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 # Configuração dos caminhos na rede
 # BASE_PATH = r"\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes"
 # Localmente para testes
-BASE_PATH = r"C:\Users\lucas.pinto\Desktop\Site_docktech_ligacoes"
+BASE_PATH = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech"
 PASTA_ENTRADA = os.path.join(BASE_PATH, "arquivo_parquet_quadro_operacional")
 
 caminho_op = os.path.join(PASTA_ENTRADA, "import_quadro_operacional.parquet")
@@ -163,7 +163,7 @@ def processar_quadro_geral():
         # Caminho para rede
         # caminho_parquet = r"\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\nivel_dois_bases_app\Arquivos_parquet_nv_2\quadro_geral.parquet"
         # Pasta local para testes
-        caminho_parquet = r"C:\Users\lucas.pinto\Desktop\Site_docktech_ligacoes\nivel_dois_bases_app\Arquivos_parquet_nv_2\quadro_geral.parquet"
+        caminho_parquet = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech\nivel_dois_bases_app\Arquivos_parquet_nv_2\quadro_geral.parquet"
         
         os.makedirs(os.path.dirname(caminho_parquet), exist_ok=True)
         df.to_parquet(caminho_parquet, index=False)
