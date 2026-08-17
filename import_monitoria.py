@@ -10,7 +10,7 @@ from aux_data_sistema import obter_datas
 # Configuracao da pasta de destino na rede
 # PASTA_DESTINO = r"\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\arquivos_parquet_monitoria"
 # Localmente para testes
-PASTA_DESTINO = r"C:\Users\lucas.pinto\Desktop\Site_docktech_ligacoes\arquivos_parquet_monitoria"
+PASTA_DESTINO = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech\arquivos_parquet_monitoria"
 os.makedirs(PASTA_DESTINO, exist_ok=True)
 
 # Inicializa conexao atraves do modulo externo

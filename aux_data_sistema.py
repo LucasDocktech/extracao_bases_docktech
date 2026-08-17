@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 
 
 def obter_datas(automatico=0):
-    automatico = 1
+    automatico = 0
 
     if automatico == 0:
         inicio_obj = date.today().replace(day=1)
@@ -11,7 +11,7 @@ def obter_datas(automatico=0):
         fim = str(fim_obj)
     else:
         inicio = '2026-01-01'
-        fim = '2026-07-24'
+        fim = '2026-08-17'
 
     ano = inicio[0:4]
     mes = inicio[5:7]

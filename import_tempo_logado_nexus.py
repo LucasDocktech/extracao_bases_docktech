@@ -10,7 +10,7 @@ from aux_data_sistema import obter_datas
 # Configuração da pasta de destino
 # PASTA_DESTINO = r"\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\arquivos_parquet_tempo_logado_nexus"
 # Pasta para testes locais
-PASTA_DESTINO = r"C:\Users\lucas.pinto\Desktop\Site_docktech_ligacoes\arquivos_parquet_tempo_logado_nexus"
+PASTA_DESTINO = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech\arquivos_parquet_tempo_logado_nexus"
 os.makedirs(PASTA_DESTINO, exist_ok=True)
 
 # Inicializa conexao atraves do modulo externo
