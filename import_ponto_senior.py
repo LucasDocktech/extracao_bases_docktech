@@ -6,12 +6,23 @@ import os
 sys.path.append(r'\\192.168.5.15\mis\Funcoes')
 import conn
 from aux_data_sistema import obter_datas
+from sqlalchemy import text
 
 # Configuracao de destino na rede
 # PASTA_DESTINO = r"\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\arquivos_parquet_login_senior"
 # Localmente para testes
 PASTA_DESTINO = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech\arquivos_parquet_login_senior"
 os.makedirs(PASTA_DESTINO, exist_ok=True)
+
+# 1. Ler o arquivo Parquet e extrair a lista de matrículas
+caminho_parquet = r"C:\Users\lucas.pinto\Desktop\extracao_bases_docktech\arquivo_parquet_quadro_operacional\import_quadro_operacional.parquet"
+df_quadro = pd.read_parquet(caminho_parquet)
+
+# Extrai os valores únicos da coluna e remove possíveis nulos
+matriculas_unicas = df_quadro['cd_matricula'].dropna().unique().tolist()
+
+# 2. Converte a lista em uma string formatada para o SQL "13005, 14204, 14488, ..."
+matriculas_str = ",".join(map(str, matriculas_unicas))
 
 login = conn.dbconnect()
 
@@ -22,7 +33,7 @@ def carregar_e_transformar_ponto_senior():
     engine = login.connProVetorh
     
     # Query crua: apenas extracao, sem pivotar
-    query_sql = text("""
+    query_sql = text(f"""
         SELECT
             a.numcra AS cd_matricula,
             a.datacc AS dt_ponto,
@@ -36,12 +47,17 @@ def carregar_e_transformar_ponto_senior():
             JOIN r034fun b WITH(NOLOCK) ON a.numcra = b.numcad
             JOIN r006esc c WITH(NOLOCK) ON b.codesc = c.codesc
         WHERE
-            a.seqacc = 1 
+            b.numcad IN ({matriculas_str}) 
             AND a.datacc >= :data_inicio
     """)
     
     with engine.connect() as cnxn:
-        df = pd.read_sql_query(query_sql, cnxn, params={"data_inicio": data_limite})
+        df_ponto = pd.read_sql(
+            query_sql, 
+            cnxn, 
+            params={"data_inicio": data_limite}
+        )
+        return df_ponto
 
     # ==================================================
     # LOGICA DE TRANSFORMACAO

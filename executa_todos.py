@@ -18,7 +18,7 @@ from import_monitoria import executar_e_salvar_monitoria
 from import_quadro_op import executar_e_salvar_quadro_operacional
 from import_quadro_directive import executar_e_salvar_quadro_directive
 from import_tempo_logado_nexus import executar_e_salvar_tempo_logado_nexus
-from import_ponto_senior import executar_e_salvar_ponto_senior
+# from import_ponto_senior import executar_e_salvar_ponto_senior
 
 def main():
     print("Iniciando fluxo completo de extração...")
@@ -44,8 +44,8 @@ def main():
         ("Monitorias Qualidade", executar_e_salvar_monitoria),
         ("Quadro Operacional", executar_e_salvar_quadro_operacional),
         ("Quadro Directive", executar_e_salvar_quadro_directive),
-        ("Tempo logado Nexus", executar_e_salvar_tempo_logado_nexus),
-        ("Ponto Senior", executar_e_salvar_ponto_senior)
+        ("Tempo logado Nexus", executar_e_salvar_tempo_logado_nexus)
+        # ("Ponto Senior", executar_e_salvar_ponto_senior)
     ]
     
     # Iteracao sobre a lista de processos para execucao sequencial

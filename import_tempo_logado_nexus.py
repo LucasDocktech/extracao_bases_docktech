@@ -47,6 +47,8 @@ def carregar_tempo_logado_nexus():
                     JOIN dim_tb_000_usuarios_matricula_docktech b WITH(NOLOCK) ON t.tx_user = b.tx_user
                 WHERE
                     CAST(t.dthr_inicio_login AS DATE) BETWEEN '{data_inicio}' AND '{data_fim}'
+                ORDER BY
+	                t.dthr_inicio_login DESC
         """
         df = pd.read_sql_query(text(query_sql), cnxn)
         return df

@@ -45,7 +45,8 @@ def carregar_quadro_directive():
         FROM 
             CACHE_FUNCIONARIO WITH(NOLOCK)
         WHERE
-            DS_OPERACAO LIKE '%DOCK%'
+            DS_OPERACAO IN ('DOCK TECH N2','DOCK TECH N3','DOCK TECH SAC')
+            AND DS_FUNCAO <> 'SUPERV JUNIOR'
             --AND CD_FUNCIONARIO = 21989
         """
         df = pd.read_sql_query(text(query_sql), cnxn)

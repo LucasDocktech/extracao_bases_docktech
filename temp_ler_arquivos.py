@@ -9,10 +9,10 @@ import pandas as pd
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Pasta onde está o parquet (exemplo: /dados/arquivo.parquet)
-caminho_parquet = os.path.join(BASE_DIR, "arquivos_parquet_chamadas", "import_chamadas_dlocal.parquet")
+caminho_parquet = os.path.join(BASE_DIR, "nivel_dois_bases_app","Arquivos_parquet_nv_2", "quadro_geral.parquet")
 
 # Caminho de saída do Excel
-caminho_excel = r"C:\Users\lucas.pinto\Desktop\Arquivos Excel RPA Dock\chamadas_dlocal.xlsx"
+caminho_excel = r"C:\Users\lucas.pinto\Desktop\Arquivos Excel RPA Dock\quadro_geral.xlsx"
 
 # ==============================
 # 2. LEITURA DO PARQUET

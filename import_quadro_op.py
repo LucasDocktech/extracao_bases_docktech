@@ -49,6 +49,11 @@ def carregar_quadro_operacional():
                 SELECT MAX(dt_quadro_dia)
                 FROM dbo.tbl_gsheet_quadro_dock WITH(NOLOCK)
             )
+            AND tx_cargo NOT IN ('MONITOR DE QUALIDADE','SUPERV TRAINEE','SUPERV JUNIOR','APRENDIZ'
+                ,'TEAM LIDER','CONTROLDESK','ANALISTA DE PLANEJAMENTO','SUPERV PL','COORDENADOR'
+                ,'MULTIPLICADOR DE TREINAMENTO','SUPERVISOR','SUPERVISOR JUNIOR','GERENTE DE ATENDIMENTO'
+                ,'TEAM LEADER','ANALISTA DE PLANEJAMENTO PL','SUPERVISOR TRAINEE','SUPERVISÃO','CONTROL DESK'
+            )
         """
         df = pd.read_sql_query(text(query_sql), cnxn)
         return df

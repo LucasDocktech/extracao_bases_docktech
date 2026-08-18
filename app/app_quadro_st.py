@@ -78,8 +78,8 @@ def run_headcount_dashboard():
     
     # CAMINHO_BASE = r'\\192.168.5.15\mis\Pessoal\Lucas\Site_docktech_ligacoes\nivel_dois_bases_app\Arquivos_parquet_nv_2\quadro_geral.parquet'
 
-    @st.cache_data(ttl=1)
-    def carregar_dados(caminho):
+    @st.cache_data
+    def carregar_dados(caminho, mtime):
         if os.path.exists(caminho):
             df = pd.read_parquet(caminho)
             df.columns = [str(col).upper() for col in df.columns] 
@@ -94,7 +94,9 @@ def run_headcount_dashboard():
             return df
         return None
 
-    df_raw = carregar_dados(CAMINHO_BASE)
+    # Pega a data/hora de última modificação do arquivo em disco
+    mtime = os.path.getmtime(CAMINHO_BASE) if os.path.exists(CAMINHO_BASE) else 0
+    df_raw = carregar_dados(CAMINHO_BASE, mtime)
 
     if df_raw is not None:
         # ITEM 4: INTERFACE E FILTROS
